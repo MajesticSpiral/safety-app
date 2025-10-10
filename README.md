@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+Safety App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Safety App is a Health and Safety management application designed for on-site monitoring of workplace safety. It allows employees to log incidents, track actions, take photos, and manage QA templates, all while ensuring data is tied to individual users. The app helps streamline incident reporting and auditing processes, improving workplace safety compliance.
 
-## Available Scripts
+Features
 
-In the project directory, you can run:
+User Authentication:
+Login with individual credentials to view personal and role-specific data.
 
-### `npm start`
+Issue Management:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Log safety issues or incidents.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Include descriptions, status, and photos for accurate reporting.
 
-### `npm test`
+Record ID auto-tracking for all issues.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Action Tracking:
 
-### `npm run build`
+Create follow-up actions linked to specific issues.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Track progress and status of actions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Photo Capture:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Capture photos directly from the app for incident evidence.
 
-### `npm run eject`
+Attach photos to issues or actions.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Templates & QA Audits:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create templates for safety audits.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Store audit questions and answers in XML format for structured reporting.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+User-Specific Data:
 
-## Learn More
+Users only see issues and actions related to their account.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Employee ID and associated records are automatically tracked.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Search & Filter:
 
-### Code Splitting
+Search through issues by name or description.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Filter actions and audits efficiently.
 
-### Analyzing the Bundle Size
+Responsive UI:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Built with React for a responsive and intuitive user interface.
 
-### Making a Progressive Web App
+Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Frontend: React, React Icons, CSS
 
-### Advanced Configuration
+Backend: Node.js, Express
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Database: Microsoft SQL Server
 
-### Deployment
+Authentication: JWT (JSON Web Tokens)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+File Handling: Photo capture and storage as hexadecimal binary in SQL
 
-### `npm run build` fails to minify
+XML Processing: Cheerio + js2xmlparser for template management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Getting Started
+Prerequisites
+
+Node.js (v18+ recommended)
+
+npm
+
+Microsoft SQL Server (with SafetyApp database)
+
+ODBC Driver 17 for SQL Server
