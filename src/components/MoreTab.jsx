@@ -16,7 +16,7 @@ function MoreTab() {
 const logout = () => {
   localStorage.clear();
   sessionStorage.clear();
-  window.location.href = window.location.origin + window.location.pathname + "#/login";
+  window.location.hash = "#/login"; // ✅ DO NOT prepend /safety-app/
 };
 
 

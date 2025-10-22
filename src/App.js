@@ -53,20 +53,21 @@ function App() {
     window.location.hash = "#/home"; // redirect properly after login
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    setIsLoggedIn(false);
-    window.location.hash = "#/login"; // redirect properly on logout
-  };
+const handleLogout = () => {
+  localStorage.clear();
+  sessionStorage.clear();
+  setIsLoggedIn(false);
+  window.location.hash = "#/login"; // ✅ safe for GitHub Pages
+};
 
   return (
     <div className="app-container">
       <div className="tab-content">
         <Switch>
           <Route exact path="/">
-            <Redirect to={isLoggedIn ? "/safety-app/#/home" : "/safety-app/#/login"} />
+            <Redirect to={isLoggedIn ? "/home" : "/login"} />
           </Route>
+
 
           <Route exact path="/login">
             {isLoggedIn ? <Redirect to="/safety-app/#/home" /> : <Login onLogin={handleLogin} />}
