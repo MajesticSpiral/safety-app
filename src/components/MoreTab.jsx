@@ -13,13 +13,12 @@ import {
 
 function MoreTab() {
   // Logout function for GitHub Pages
-  const logout = () => {
-    // Clear any stored login info
-    localStorage.clear();
-    sessionStorage.clear();
-    // Use hash path for GitHub Pages
-    window.location.hash = "#/login";
-  };
+const logout = () => {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = window.location.origin + window.location.pathname + "#/login";
+};
+
 
   return (
     <div className="more-tab">
