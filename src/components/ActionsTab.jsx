@@ -10,29 +10,28 @@ function ActionsTab() {
     description: "",
     status: "To Do",
   });
-
   const [userId, setUserId] = useState(null);
 
-  // Load user ID from localStorage
+  const API_BASE = "http://localhost:4000"; // ✅ Change this to your backend URL
+
+  // ✅ Load user ID from sessionStorage
   useEffect(() => {
-    const storedId = localStorage.getItem("id");
+    const storedId = sessionStorage.getItem("id");
     if (storedId) {
       setUserId(storedId);
     } else {
-      console.error("No user ID found in localStorage");
+      console.error("No user ID found in sessionStorage");
     }
   }, []);
 
   // Fetch actions when userId is loaded
   useEffect(() => {
-    if (userId) {
-      loadActions();
-    }
+    if (userId) loadActions();
   }, [userId]);
 
   const loadActions = async () => {
     try {
-      const response = await fetch("http://localhost:4000/actions");
+      const response = await fetch(`${API_BASE}/actions?userId=${userId}`);
       const data = await response.json();
       const mappedActions = data.map((a) => ({
         ...a,
@@ -46,7 +45,6 @@ function ActionsTab() {
     }
   };
 
-  // Filter by search term
   const filterActions = (e) => {
     const text = e.target.value.toLowerCase();
     setSearchText(text);
@@ -72,17 +70,15 @@ function ActionsTab() {
 
     try {
       const payload = { ...newAction, employee_id: Number(userId) };
-      const response = await fetch("http://localhost:4000/addAction", {
+      const response = await fetch(`${API_BASE}/addAction`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to add action");
-      }
+      if (!response.ok) throw new Error("Failed to add action");
 
-      const addedAction = { ...payload, recordID: Date.now() }; // temp ID
+      const addedAction = { ...payload, recordID: Date.now() };
       const updated = [...actions, addedAction];
       setActions(updated);
       setFilteredActions(updated);
@@ -238,15 +234,9 @@ function ActionsTab() {
           }}
         >
           <h3 style={{ color: "#007bff" }}>{a.action_name}</h3>
-          <p>
-            <strong>Record ID:</strong> {a.recordID}
-          </p>
-          <p>
-            <strong>Assigned User:</strong> {a.employee_id}
-          </p>
-          <p>
-            <strong>Description:</strong> {a.description}
-          </p>
+          <p><strong>Record ID:</strong> {a.recordID}</p>
+          <p><strong>Assigned User:</strong> {a.employee_id}</p>
+          <p><strong>Description:</strong> {a.description}</p>
           <p>
             <strong>Status:</strong>{" "}
             <span style={getStatusColors(a.status)}>{a.status}</span>
