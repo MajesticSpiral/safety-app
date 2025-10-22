@@ -53,12 +53,15 @@ function App() {
     setIsLoggedIn(true); // trigger re-render and redirect
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("id");
-    setIsLoggedIn(false);
-    // ✅ Ensure redirect works on GitHub Pages
-    window.location.hash = "#/login";
-  };
+const handleLogout = () => {
+  localStorage.clear();
+  sessionStorage.clear();
+  setIsLoggedIn(false);
+
+  // Redirect correctly on GitHub Pages
+  window.location.href = "/safety-app/#/login";
+};
+
 
   return (
     <div className="app-container">
