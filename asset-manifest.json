@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/safety-app/static/css/main.0f38f6fc.css",
-    "main.js": "/safety-app/static/js/main.a363e55b.js",
+    "main.js": "/safety-app/static/js/main.ccdd3316.js",
     "static/js/453.5de2c2de.chunk.js": "/safety-app/static/js/453.5de2c2de.chunk.js",
     "index.html": "/safety-app/index.html",
     "main.0f38f6fc.css.map": "/safety-app/static/css/main.0f38f6fc.css.map",
-    "main.a363e55b.js.map": "/safety-app/static/js/main.a363e55b.js.map",
+    "main.ccdd3316.js.map": "/safety-app/static/js/main.ccdd3316.js.map",
     "453.5de2c2de.chunk.js.map": "/safety-app/static/js/453.5de2c2de.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0f38f6fc.css",
-    "static/js/main.a363e55b.js"
+    "static/js/main.ccdd3316.js"
   ]
 }
