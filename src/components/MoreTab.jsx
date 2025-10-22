@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { 
   FaUserCircle, 
   FaList, 
@@ -12,16 +11,7 @@ import {
   FaShareAlt 
 } from "react-icons/fa";
 
-function MoreTab() {
-  const history = useHistory();
-
-  // Logout function
-  const logout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    history.push("/login"); // ✅ Redirect to login page using React Router
-  };
-
+function MoreTab({ onLogout }) {  // ✅ Receive onLogout as prop
   return (
     <div className="more-tab">
       {/* Header */}
@@ -29,7 +19,7 @@ function MoreTab() {
         <h1>More</h1>
       </header>
 
-      {/* Logo Section (optional) */}
+      {/* Logo Section */}
       <div className="logo-container"></div>
 
       {/* Profile Section */}
@@ -75,7 +65,7 @@ function MoreTab() {
         <p className="section-text">Settings</p>
         <button 
           className="btn logout-btn" 
-          onClick={logout}
+          onClick={onLogout}  // ✅ Use prop instead of local logout
           style={{ marginTop: "0.5rem", padding: "0.5rem 1rem", cursor: "pointer" }}
         >
           Logout
