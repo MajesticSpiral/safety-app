@@ -3,37 +3,32 @@ import { FaUserCircle, FaList, FaHeartbeat, FaTh, FaChartLine, FaExclamationCirc
 
 function MoreTab() {
   const logout = () => {
-    // Clear local storage or auth token
     localStorage.clear();
-    window.location.href = "/home"; // Redirect to home/login
+    sessionStorage.clear();
+    window.location.hash = "#/login"; // Redirect to login correctly on GitHub Pages
   };
 
   return (
     <div className="more-tab">
-      {/* Header */}
       <header className="header">
         <h1>More</h1>
       </header>
 
-      {/* Logo */}
       <div className="logo-container">
-        {/* <img src="/assets/images/logo3.png" alt="Logo" /> */}
+        {/* Logo if needed */}
       </div>
 
-      {/* Profile Section */}
       <div className="section profile-section">
         <FaUserCircle size={48} />
       </div>
 
       <div className="separator"></div>
 
-      {/* Organization */}
       <div className="section">
         <p className="section-title">Organization</p>
         <p className="organization-text">Kronospan Chirk</p>
       </div>
 
-      {/* Features Section */}
       <div className="section">
         <p className="section-text"><FaList /> Issues</p>
         <p className="section-text"><FaHeartbeat /> Sensors</p>
@@ -47,7 +42,6 @@ function MoreTab() {
 
       <div className="separator"></div>
 
-      {/* Help Section */}
       <div className="section">
         <p className="section-text">Help</p>
         <p className="section-text">Help Center</p>
@@ -57,7 +51,6 @@ function MoreTab() {
 
       <div className="separator"></div>
 
-      {/* Account Section */}
       <div className="section">
         <p className="section-text">Account</p>
         <p className="section-text">Settings</p>
