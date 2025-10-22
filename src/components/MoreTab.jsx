@@ -1,32 +1,50 @@
 import React from "react";
-import { FaUserCircle, FaList, FaHeartbeat, FaTh, FaChartLine, FaExclamationCircle, FaBook, FaFileAlt, FaShareAlt } from "react-icons/fa";
+import { 
+  FaUserCircle, 
+  FaList, 
+  FaHeartbeat, 
+  FaTh, 
+  FaChartLine, 
+  FaExclamationCircle, 
+  FaBook, 
+  FaFileAlt, 
+  FaShareAlt 
+} from "react-icons/fa";
 
 function MoreTab() {
+  // Logout function for GitHub Pages
   const logout = () => {
+    // Clear any stored login info
     localStorage.clear();
     sessionStorage.clear();
-    window.location.hash = "#/login"; // use hash path for GitHub Pages
+    // Use hash path for GitHub Pages
+    window.location.hash = "#/login";
   };
 
   return (
     <div className="more-tab">
+      {/* Header */}
       <header className="header">
         <h1>More</h1>
       </header>
 
+      {/* Logo Section (optional) */}
       <div className="logo-container"></div>
 
+      {/* Profile Section */}
       <div className="section profile-section">
         <FaUserCircle size={48} />
       </div>
 
       <div className="separator"></div>
 
+      {/* Organization Section */}
       <div className="section">
         <p className="section-title">Organization</p>
         <p className="organization-text">Kronospan Chirk</p>
       </div>
 
+      {/* Features Section */}
       <div className="section">
         <p className="section-text"><FaList /> Issues</p>
         <p className="section-text"><FaHeartbeat /> Sensors</p>
@@ -40,6 +58,7 @@ function MoreTab() {
 
       <div className="separator"></div>
 
+      {/* Help Section */}
       <div className="section">
         <p className="section-text">Help</p>
         <p className="section-text">Help Center</p>
@@ -49,10 +68,15 @@ function MoreTab() {
 
       <div className="separator"></div>
 
+      {/* Account Section */}
       <div className="section">
         <p className="section-text">Account</p>
         <p className="section-text">Settings</p>
-        <button className="btn logout-btn" onClick={logout}>
+        <button 
+          className="btn logout-btn" 
+          onClick={logout}
+          style={{ marginTop: "0.5rem", padding: "0.5rem 1rem", cursor: "pointer" }}
+        >
           Logout
         </button>
       </div>
