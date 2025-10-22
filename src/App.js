@@ -6,6 +6,7 @@ import {
   Redirect,
   NavLink,
   useLocation,
+  useHistory,
 } from "react-router-dom";
 import { FaHome, FaClipboardList, FaCheckCircle, FaThLarge } from "react-icons/fa";
 import HomeTab from "./components/HomeTab";
@@ -22,7 +23,7 @@ function NotFound() {
     <div className="not-found">
       <h1>404</h1>
       <p>Oops! The page you're looking for does not exist.</p>
-      <NavLink to="#/login">Go Back Home</NavLink>
+      <NavLink to="/login">Go Back Home</NavLink>
     </div>
   );
 }
@@ -47,15 +48,12 @@ function App() {
   const handleLogin = (userId) => {
     sessionStorage.setItem("id", userId);
     setIsLoggedIn(true);
-    window.location.hash = "#/home"; // redirect after login
   };
 
-  // Logout will now be passed only to MoreTab
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
     setIsLoggedIn(false);
-    window.location.hash = "#/login"; // redirect to login after logout
   };
 
   return (
@@ -126,7 +124,6 @@ function App() {
           </NavLink>
         </nav>
       )}
-
     </div>
   );
 }

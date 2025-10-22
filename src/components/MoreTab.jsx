@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { 
   FaUserCircle, 
   FaList, 
@@ -12,15 +13,14 @@ import {
 } from "react-icons/fa";
 
 function MoreTab() {
-  // Logout function for GitHub Pages
-const logout = () => {
-  localStorage.clear();
-  sessionStorage.clear();
-  // ✅ Only set the hash relative to the repo root
-  window.location.hash = "#/login";
-};
+  const history = useHistory();
 
-
+  // Logout function
+  const logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    history.push("/login"); // ✅ Redirect to login page using React Router
+  };
 
   return (
     <div className="more-tab">
