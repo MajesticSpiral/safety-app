@@ -16,8 +16,10 @@ function MoreTab() {
 const logout = () => {
   localStorage.clear();
   sessionStorage.clear();
-  window.location.hash = "#/login"; // ✅ DO NOT prepend /safety-app/
+  // ✅ Only set the hash relative to the repo root
+  window.location.hash = "#/login";
 };
+
 
 
   return (
