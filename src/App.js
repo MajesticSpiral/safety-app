@@ -126,6 +126,7 @@ function App() {
           </NavLink>
         </nav>
       )}
+
     </div>
   );
 }
