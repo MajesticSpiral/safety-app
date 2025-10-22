@@ -13,7 +13,7 @@ import HomeTab from "./components/HomeTab";
 import IssuesTab from "./components/IssuesTab";
 import ActionsTab from "./components/ActionsTab";
 import InspectionsTab from "./components/InspectionsTab";
-import MoreTab from "./components/MoreTab.jsx"; // ensure it matches your filename
+import MoreTab from "./components/MoreTab.jsx";
 import Login from "./components/login";
 import "./App.css";
 
@@ -41,19 +41,24 @@ function ProtectedRoute({ component: Component, isLoggedIn, ...rest }) {
 }
 
 function App() {
+  const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem("id"));
   const location = useLocation();
   const hideTabBar = location.pathname === "/login";
 
+  // ✅ After login, go to /home
   const handleLogin = (userId) => {
     sessionStorage.setItem("id", userId);
     setIsLoggedIn(true);
+    history.push("/home");
   };
 
+  // ✅ After logout, go to /login
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
     setIsLoggedIn(false);
+    history.push("/login");
   };
 
   return (
@@ -67,7 +72,7 @@ function App() {
 
           {/* Login */}
           <Route exact path="/login">
-            {isLoggedIn ? <Redirect to="/home" /> : <Login onLogin={handleLogin} />}
+            <Login onLogin={handleLogin} />
           </Route>
 
           {/* Protected routes */}
