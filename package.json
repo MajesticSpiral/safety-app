@@ -2,7 +2,7 @@
   "name": "safety-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://majesticspiral.github.io/safety-app"
+  "homepage": "https://majesticspiral.github.io/safety-app",
   "dependencies": {
     "@ionic/react": "^6.7.5",
     "@ionic/react-router": "^6.7.5",
