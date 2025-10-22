@@ -5,7 +5,7 @@ function MoreTab() {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.hash = "#/login"; // Redirect to login correctly on GitHub Pages
+    window.location.hash = "#/login"; // use hash path for GitHub Pages
   };
 
   return (
@@ -14,9 +14,7 @@ function MoreTab() {
         <h1>More</h1>
       </header>
 
-      <div className="logo-container">
-        {/* Logo if needed */}
-      </div>
+      <div className="logo-container"></div>
 
       <div className="section profile-section">
         <FaUserCircle size={48} />

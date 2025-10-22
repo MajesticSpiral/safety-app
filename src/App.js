@@ -22,7 +22,7 @@ function NotFound() {
     <div className="not-found">
       <h1>404</h1>
       <p>Oops! The page you're looking for does not exist.</p>
-      <NavLink to="#/home" className="back-home-button">
+      <NavLink to="/safety-app/#/home" className="back-home-button">
         Go Back Home
       </NavLink>
     </div>
@@ -35,7 +35,7 @@ function ProtectedRoute({ component: Component, isLoggedIn, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
+        isLoggedIn ? <Component {...props} /> : <Redirect to="/safety-app/#/login" />
       }
     />
   );
@@ -47,67 +47,59 @@ function App() {
   const location = useLocation();
   const hideTabBar = location.pathname === "/login";
 
-  // Callback to update login state after logging in
   const handleLogin = (userId) => {
     sessionStorage.setItem("id", userId);
-    setIsLoggedIn(true); // trigger re-render and redirect
+    setIsLoggedIn(true);
+    window.location.hash = "#/home"; // redirect properly after login
   };
 
-const handleLogout = () => {
-  localStorage.clear();
-  sessionStorage.clear();
-  setIsLoggedIn(false);
-
-  // Redirect correctly on GitHub Pages
-  window.location.href = "/safety-app/#/login";
-};
-
+  const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    setIsLoggedIn(false);
+    window.location.hash = "#/login"; // redirect properly on logout
+  };
 
   return (
     <div className="app-container">
       <div className="tab-content">
         <Switch>
-          {/* Default route */}
           <Route exact path="/">
-            <Redirect to={isLoggedIn ? "/home" : "/login"} />
+            <Redirect to={isLoggedIn ? "/safety-app/#/home" : "/safety-app/#/login"} />
           </Route>
 
-          {/* Login route */}
           <Route exact path="/login">
-            {isLoggedIn ? <Redirect to="/home" /> : <Login onLogin={handleLogin} />}
+            {isLoggedIn ? <Redirect to="/safety-app/#/home" /> : <Login onLogin={handleLogin} />}
           </Route>
 
-          {/* Protected routes */}
           <ProtectedRoute exact path="/home" component={HomeTab} isLoggedIn={isLoggedIn} />
           <ProtectedRoute exact path="/issues" component={IssuesTab} isLoggedIn={isLoggedIn} />
           <ProtectedRoute exact path="/actions" component={ActionsTab} isLoggedIn={isLoggedIn} />
           <ProtectedRoute exact path="/inspections" component={InspectionsTab} isLoggedIn={isLoggedIn} />
           <ProtectedRoute exact path="/more" component={MoreTab} isLoggedIn={isLoggedIn} />
 
-          {/* Catch-all 404 */}
           <Route component={NotFound} />
         </Switch>
       </div>
 
       {isLoggedIn && !hideTabBar && (
         <nav className="tab-bar">
-          <NavLink exact to="/home" activeClassName="active-tab" className="tab-button">
+          <NavLink exact to="/safety-app/#/home" activeClassName="active-tab" className="tab-button">
             <FaHome size={20} /> Home
           </NavLink>
 
-          <NavLink exact to="/inspections" activeClassName="active-tab" className="tab-button">
+          <NavLink exact to="/safety-app/#/inspections" activeClassName="active-tab" className="tab-button">
             <FaClipboardList size={20} /> Inspections
           </NavLink>
 
-          <NavLink exact to="/actions" activeClassName="active-tab" className="tab-button">
+          <NavLink exact to="/safety-app/#/actions" activeClassName="active-tab" className="tab-button">
             <FaCheckCircle size={20} /> Actions
           </NavLink>
 
-          <NavLink exact to="/more" activeClassName="active-tab" className="tab-button">
+          <NavLink exact to="/safety-app/#/more" activeClassName="active-tab" className="tab-button">
             <FaThLarge size={20} /> More
           </NavLink>
 
-          {/* ✅ Logout button */}
           <button
             onClick={handleLogout}
             style={{ marginLeft: "1rem", padding: "0.5rem 1rem" }}
@@ -120,7 +112,6 @@ const handleLogout = () => {
   );
 }
 
-// Wrap App with HashRouter
 export default function AppWrapper() {
   return (
     <Router>
