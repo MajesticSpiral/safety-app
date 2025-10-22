@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ onLogin }) { // ✅ accept onLogin from App
   const [clockNumber, setClockNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const history = useHistory();
 
   const handleLogin = async () => {
     try {
@@ -16,12 +14,15 @@ export default function Login() {
       const user = employees.find(
         emp =>
           String(emp.clocknumber) === clockNumber.trim() &&
-          emp.password === password // password field in DB
+          emp.password === password
       );
 
       if (user) {
-        localStorage.setItem("id", user.employee_id);
-        history.push("/home");
+        // ✅ Use sessionStorage for per-tab login
+        sessionStorage.setItem("id", user.employee_id);
+
+        // ✅ Inform App component about login
+        onLogin(user.employee_id);
       } else {
         setError("Invalid clock number or password");
       }

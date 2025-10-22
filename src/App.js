@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   HashRouter as Router,
   Route,
@@ -13,7 +13,7 @@ import IssuesTab from "./components/IssuesTab";
 import ActionsTab from "./components/ActionsTab";
 import InspectionsTab from "./components/InspectionsTab";
 import MoreTab from "./components/MoreTab";
-import Login from "./components/login"; // must match login.jsx
+import Login from "./components/login"; 
 import "./App.css";
 
 // 404 Page Component
@@ -22,7 +22,7 @@ function NotFound() {
     <div className="not-found">
       <h1>404</h1>
       <p>Oops! The page you're looking for does not exist.</p>
-      <NavLink to="/home" className="back-home-button">
+      <NavLink to="#/home" className="back-home-button">
         Go Back Home
       </NavLink>
     </div>
@@ -30,8 +30,7 @@ function NotFound() {
 }
 
 // ProtectedRoute wrapper
-function ProtectedRoute({ component: Component, ...rest }) {
-  const isLoggedIn = !!localStorage.getItem("id");
+function ProtectedRoute({ component: Component, isLoggedIn, ...rest }) {
   return (
     <Route
       {...rest}
@@ -44,13 +43,25 @@ function ProtectedRoute({ component: Component, ...rest }) {
 
 // Main App Component
 function App() {
-  const isLoggedIn = !!localStorage.getItem("id");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem("id"));
   const location = useLocation();
-  const hideTabBar = location.pathname === "/login"; // hide only on login page
+  const hideTabBar = location.pathname === "/login";
+
+  // Callback to update login state after logging in
+  const handleLogin = (userId) => {
+    sessionStorage.setItem("id", userId);
+    setIsLoggedIn(true); // trigger re-render and redirect
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("id");
+    setIsLoggedIn(false);
+    // ✅ Ensure redirect works on GitHub Pages
+    window.location.hash = "#/login";
+  };
 
   return (
     <div className="app-container">
-      {/* Main content */}
       <div className="tab-content">
         <Switch>
           {/* Default route */}
@@ -60,22 +71,21 @@ function App() {
 
           {/* Login route */}
           <Route exact path="/login">
-            {isLoggedIn ? <Redirect to="/home" /> : <Login />}
+            {isLoggedIn ? <Redirect to="/home" /> : <Login onLogin={handleLogin} />}
           </Route>
 
           {/* Protected routes */}
-          <ProtectedRoute exact path="/home" component={HomeTab} />
-          <ProtectedRoute exact path="/issues" component={IssuesTab} />
-          <ProtectedRoute exact path="/actions" component={ActionsTab} />
-          <ProtectedRoute exact path="/inspections" component={InspectionsTab} />
-          <ProtectedRoute exact path="/more" component={MoreTab} />
+          <ProtectedRoute exact path="/home" component={HomeTab} isLoggedIn={isLoggedIn} />
+          <ProtectedRoute exact path="/issues" component={IssuesTab} isLoggedIn={isLoggedIn} />
+          <ProtectedRoute exact path="/actions" component={ActionsTab} isLoggedIn={isLoggedIn} />
+          <ProtectedRoute exact path="/inspections" component={InspectionsTab} isLoggedIn={isLoggedIn} />
+          <ProtectedRoute exact path="/more" component={MoreTab} isLoggedIn={isLoggedIn} />
 
           {/* Catch-all 404 */}
           <Route component={NotFound} />
         </Switch>
       </div>
 
-      {/* Bottom tab bar - visible only if logged in and not on login page */}
       {isLoggedIn && !hideTabBar && (
         <nav className="tab-bar">
           <NavLink exact to="/home" activeClassName="active-tab" className="tab-button">
@@ -93,6 +103,14 @@ function App() {
           <NavLink exact to="/more" activeClassName="active-tab" className="tab-button">
             <FaThLarge size={20} /> More
           </NavLink>
+
+          {/* ✅ Logout button */}
+          <button
+            onClick={handleLogout}
+            style={{ marginLeft: "1rem", padding: "0.5rem 1rem" }}
+          >
+            Logout
+          </button>
         </nav>
       )}
     </div>
