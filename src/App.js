@@ -46,18 +46,28 @@ function App() {
   const location = useLocation();
   const hideTabBar = location.pathname === "/login";
 
-  // ✅ After login, go to /home
+  // ✅ Handle login
   const handleLogin = (userId) => {
+    // Clear any old session/local data first
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Save new user session
     sessionStorage.setItem("id", userId);
     setIsLoggedIn(true);
+
+    // Redirect to home
     history.push("/home");
   };
 
-  // ✅ After logout, go to /login
+  // ✅ Handle logout
   const handleLogout = () => {
+    // Clear all user data so next user starts fresh
     localStorage.clear();
     sessionStorage.clear();
     setIsLoggedIn(false);
+
+    // Redirect to login
     history.push("/login");
   };
 
@@ -72,7 +82,11 @@ function App() {
 
           {/* Login */}
           <Route exact path="/login">
-            <Login onLogin={handleLogin} />
+            {isLoggedIn ? (
+              <Redirect to="/home" />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )}
           </Route>
 
           {/* Protected routes */}
@@ -104,27 +118,49 @@ function App() {
             exact
             path="/more"
             isLoggedIn={isLoggedIn}
-            component={(props) => <MoreTab {...props} onLogout={handleLogout} />}
+            component={(props) => (
+              <MoreTab {...props} onLogout={handleLogout} />
+            )}
           />
 
-          {/* 404 */}
+          {/* 404 Page */}
           <Route component={NotFound} />
         </Switch>
       </div>
 
-      {/* Tab bar */}
+      {/* Bottom Tab Bar */}
       {isLoggedIn && !hideTabBar && (
         <nav className="tab-bar">
-          <NavLink exact to="/home" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/home"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaHome size={20} /> Home
           </NavLink>
-          <NavLink exact to="/inspections" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/inspections"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaClipboardList size={20} /> Inspections
           </NavLink>
-          <NavLink exact to="/actions" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/actions"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaCheckCircle size={20} /> Actions
           </NavLink>
-          <NavLink exact to="/more" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/more"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaThLarge size={20} /> More
           </NavLink>
         </nav>
