@@ -1,5 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect, NavLink, useLocation } from "react-router-dom";
+import {
+  HashRouter as Router, // ✅ Use HashRouter instead of BrowserRouter
+  Route,
+  Switch,
+  Redirect,
+  NavLink,
+  useLocation,
+} from "react-router-dom";
 import { FaHome, FaClipboardList, FaCheckCircle, FaThLarge } from "react-icons/fa";
 import HomeTab from "./components/HomeTab";
 import IssuesTab from "./components/IssuesTab";
@@ -58,7 +65,7 @@ function App() {
           <ProtectedRoute exact path="/inspections" component={InspectionsTab} />
           <ProtectedRoute exact path="/more" component={MoreTab} />
 
-          {/* Default route */}
+          {/* ✅ Default route - redirect to login if not logged in */}
           <Route exact path="/">
             <Redirect to={isLoggedIn ? "/home" : "/login"} />
           </Route>
@@ -71,19 +78,39 @@ function App() {
       {/* Bottom tab bar - visible only if logged in and not on login page */}
       {isLoggedIn && !hideTabBar && (
         <nav className="tab-bar">
-          <NavLink exact to="/home" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/home"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaHome size={20} /> Home
           </NavLink>
 
-          <NavLink exact to="/inspections" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/inspections"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaClipboardList size={20} /> Inspections
           </NavLink>
 
-          <NavLink exact to="/actions" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/actions"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaCheckCircle size={20} /> Actions
           </NavLink>
 
-          <NavLink exact to="/more" activeClassName="active-tab" className="tab-button">
+          <NavLink
+            exact
+            to="/more"
+            activeClassName="active-tab"
+            className="tab-button"
+          >
             <FaThLarge size={20} /> More
           </NavLink>
         </nav>
@@ -92,7 +119,7 @@ function App() {
   );
 }
 
-// Wrap App with Router
+// ✅ Wrap App with HashRouter (required for GitHub Pages)
 export default function AppWrapper() {
   return (
     <Router>
